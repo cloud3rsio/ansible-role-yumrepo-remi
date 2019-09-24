@@ -4,6 +4,8 @@
   changed_when: False
   ignore_errors: True
   register: remi_status
+  when:
+    - ansible_distribution == "CentOS"
 
 - name: Install remi
   yum:
@@ -16,4 +18,5 @@
 - name: Enabled remi
   command: yum-config-manager --enable remi
   when:
+    - ansible_distribution == "CentOS"
     - remi_status.rc != 0
