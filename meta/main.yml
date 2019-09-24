@@ -1,0 +1,17 @@
+galaxy_info:
+  role_name: yumrepo_remi
+  author: youyo
+  company: heptagon inc.
+  description: install remi repository
+  license: MIT
+  min_ansible_version: 2.8
+  platforms:
+    - name: EL
+      versions:
+        - 7
+
+  galaxy_tags:
+    - system
+
+dependencies:
+  - cloud3rsio.yumrepo_common
