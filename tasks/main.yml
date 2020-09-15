@@ -5,7 +5,15 @@
   ignore_errors: True
   register: remi_status
   when:
-    - ansible_distribution == "CentOS"
+    - ansible_distribution == "CentOS" and ansible_distribution_major_version == "7"
+
+- name: Check remi status
+  shell: yum-config-manager --dump remi | grep -q 'enabled = 1'
+  changed_when: False
+  ignore_errors: True
+  register: remi_status
+  when:
+    - ansible_distribution == "CentOS" and ansible_distribution_major_version == "8"
 
 - name: Install remi
   yum:
