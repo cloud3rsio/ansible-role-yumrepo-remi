@@ -16,6 +16,15 @@
     - ansible_distribution_major_version == "7"
     - remi_status.rc != 0
 
+- name: Install remi
+  yum:
+    name: https://rpms.remirepo.net/enterprise/remi-release-8.rpm
+    state: present
+  when:
+    - ansible_distribution == "CentOS"
+    - ansible_distribution_major_version == "8"
+    - remi_status.rc != 0
+
 - name: Enabled remi
   command: yum-config-manager --enable remi
   when:
