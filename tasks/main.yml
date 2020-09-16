@@ -11,7 +11,7 @@
   shell: yum-config-manager --dump remi | grep -q 'enabled = 1'
   changed_when: False
   ignore_errors: True
-  register: remi_status
+  register: remi_status_2
   when:
     - ansible_distribution == "CentOS" and ansible_distribution_major_version == "8"
 
@@ -31,10 +31,18 @@
   when:
     - ansible_distribution == "CentOS"
     - ansible_distribution_major_version == "8"
+    - remi_status_2.rc != 0
+
+- name: Enabled remi
+  command: yum-config-manager --enable remi
+  when:
+    - ansible_distribution == "CentOS"
+    - ansible_distribution_major_version == "7"
     - remi_status.rc != 0
 
 - name: Enabled remi
   command: yum-config-manager --enable remi
   when:
     - ansible_distribution == "CentOS"
-    - remi_status.rc != 0
+    - ansible_distribution_major_version == "8"
+    - remi_status_2.rc != 0
